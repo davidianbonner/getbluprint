@@ -37,4 +37,14 @@ class HelpersTest extends TestCase
             "<h1>Foo Bar</h1>\n", markdownTrans('app.debug.test')
         );
     }
+
+    /** @test */
+    function it_can_encode_and_decode_ids()
+    {
+        $expected = 10;
+
+        $this->assertEquals(
+            $expected, decodeId(encodeId($expected))
+        );
+    }
 }

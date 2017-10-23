@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Carbon;
+use Jenssegers\Optimus\Optimus;
 use League\CommonMark\CommonMarkConverter;
 
 if (!function_exists('carbon')) {
@@ -37,5 +38,31 @@ if (!function_exists('markdownTrans')) {
         return with(new CommonMarkConverter)->convertToHtml(
             trans($key)
         );
+    }
+}
+
+if (!function_exists('encodeId')) {
+    /**
+     * Obfuscate an ID with optimus.
+     *
+     * @param  mixed $id
+     * @return string
+     */
+    function encodeId($id)
+    {
+        return app(Optimus::class)->encode($id);
+    }
+}
+
+if (!function_exists('decodeId')) {
+    /**
+     * Decode an obfuscated ID.
+     *
+     * @param  string $id
+     * @return mixed
+     */
+    function decodeId($id)
+    {
+        return app(Optimus::class)->decode($id);
     }
 }
